@@ -44,7 +44,7 @@ function suggestUsername(){const f=$("#first").value.trim().replace(/\W/g,""),l=
 $("#profileBtn").onclick=()=>{if(localStorage.getItem("gwg_account_created")==="1")openModal("#welcomeBackModal");else openModal("#accountModal")};
 $("#welcomeBackModal").addEventListener("pointerdown",enterFullScreen,{capture:true});
 $("#welcomePlay").onclick=$("#welcomeClose").onclick=()=>{$("#welcomeBackModal").classList.remove("open");enterFullScreen()};
-$("#rewardAd").addEventListener("click",e=>{if(e.target===$("#rewardAd")){e.stopImmediatePropagation();$("#adExit").click()}},{capture:true});
+$("#rewardAd").addEventListener("click",e=>{if(e.target===$("#rewardAd")){e.preventDefault();e.stopImmediatePropagation()}},{capture:true});
 $("#joinForm").addEventListener("submit",()=>localStorage.setItem("gwg_account_created","1"));
 $("#loginForm").addEventListener("submit",()=>localStorage.setItem("gwg_account_created","1"));
 $("#joinForm").onsubmit=e=>{e.preventDefault();const name=$("#username").value.trim();localStorage.setItem("gwg_name",name);$("#profileBtn").textContent=name;closeModals();enterFullScreen();toast("Welcome, "+name+"! Your puzzle is ready.")};$("#loginForm").onsubmit=e=>{e.preventDefault();const name=$("#loginUser").value.trim().split("@")[0];localStorage.setItem("gwg_name",name);$("#profileBtn").textContent=name;closeModals();enterFullScreen();toast("Welcome back, "+name+"!")};$("#skipBtn").onclick=()=>{closeModals();enterFullScreen();toast("Playing as a guest. Progress stays on this device.")};$("#continueBtn").onclick=()=>{$("#winModal").classList.remove("open");state.puzzle=(state.puzzle+1)%100;buildCurrent()};
