@@ -195,6 +195,165 @@ grant insert, update on public.game_sessions to anon, authenticated;
 grant insert on public.game_events to anon, authenticated;
 grant usage, select on sequence public.game_events_id_seq to anon, authenticated;
 
+-- Reliable profile-based tracking API.
+-- The website calls these functions instead of writing directly through RLS.
+-- Every function first verifies that the supplied profile exists.
+
+create or replace function public.gwg_start_visit(
+  p_profile_id uuid,
+  p_session_id uuid,
+  p_user_agent text default '',
+  p_page_url text default ''
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not exists (select 1 from public.profiles where id = p_profile_id) then
+    return false;
+  end if;
+  insert into public.user_sessions (
+    id, profile_id, started_at, last_active_at, active_seconds, user_agent, page_url
+  ) values (
+    p_session_id, p_profile_id, now(), now(), 0, left(coalesce(p_user_agent,''),1000), left(coalesce(p_page_url,''),2000)
+  ) on conflict (id) do update set
+    last_active_at = now(),
+    user_agent = excluded.user_agent,
+    page_url = excluded.page_url;
+  return true;
+end;
+$$;
+
+create or replace function public.gwg_start_game(
+  p_profile_id uuid,
+  p_session_id uuid,
+  p_game_session_id uuid,
+  p_game_type text,
+  p_puzzle_id text,
+  p_difficulty text
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not exists (select 1 from public.profiles where id = p_profile_id)
+     or p_game_type not in ('crossword','wordsearch','sudoku','memory')
+     or p_difficulty not in ('easy','medium','hard') then
+    return false;
+  end if;
+  insert into public.game_sessions (
+    id, profile_id, session_id, game_type, puzzle_id, difficulty, started_at,
+    duration_seconds, hints_used, completed
+  ) values (
+    p_game_session_id, p_profile_id, p_session_id, p_game_type,
+    left(coalesce(p_puzzle_id,''),100), p_difficulty, now(), 0, 0, false
+  ) on conflict (id) do nothing;
+  insert into public.game_events (
+    profile_id, session_id, game_session_id, event_type,
+    game_type, difficulty, event_data
+  ) values (
+    p_profile_id, p_session_id, p_game_session_id, 'game_started',
+    p_game_type, p_difficulty, jsonb_build_object('puzzle_id',p_puzzle_id)
+  );
+  return true;
+end;
+$$;
+
+create or replace function public.gwg_heartbeat(
+  p_profile_id uuid,
+  p_session_id uuid,
+  p_active_seconds integer,
+  p_game_session_id uuid default null,
+  p_game_seconds integer default 0,
+  p_hints_used integer default 0
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  update public.user_sessions
+  set last_active_at = now(), active_seconds = greatest(active_seconds, greatest(coalesce(p_active_seconds,0),0))
+  where id = p_session_id and profile_id = p_profile_id;
+  if p_game_session_id is not null then
+    update public.game_sessions
+    set duration_seconds = greatest(duration_seconds, greatest(coalesce(p_game_seconds,0),0)),
+        hints_used = greatest(hints_used, greatest(coalesce(p_hints_used,0),0))
+    where id = p_game_session_id and profile_id = p_profile_id;
+  end if;
+  return found;
+end;
+$$;
+
+create or replace function public.gwg_finish_game(
+  p_profile_id uuid,
+  p_game_session_id uuid,
+  p_duration_seconds integer,
+  p_hints_used integer,
+  p_end_reason text,
+  p_completed boolean default false,
+  p_score integer default null
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  update public.game_sessions
+  set ended_at = now(),
+      completed_at = case when p_completed then now() else completed_at end,
+      duration_seconds = greatest(duration_seconds, greatest(coalesce(p_duration_seconds,0),0)),
+      hints_used = greatest(hints_used, greatest(coalesce(p_hints_used,0),0)),
+      completed = p_completed,
+      score = case when p_score is null then score else greatest(p_score,0) end,
+      end_reason = left(coalesce(p_end_reason,''),100)
+  where id = p_game_session_id and profile_id = p_profile_id;
+  return found;
+end;
+$$;
+
+create or replace function public.gwg_log_event(
+  p_profile_id uuid,
+  p_session_id uuid,
+  p_game_session_id uuid,
+  p_event_type text,
+  p_game_type text,
+  p_difficulty text,
+  p_event_data jsonb default '{}'::jsonb
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not exists (select 1 from public.profiles where id = p_profile_id) then
+    return false;
+  end if;
+  insert into public.game_events (
+    profile_id, session_id, game_session_id, event_type,
+    game_type, difficulty, event_data
+  ) values (
+    p_profile_id, p_session_id, p_game_session_id,
+    left(coalesce(p_event_type,'event'),100), p_game_type, p_difficulty,
+    coalesce(p_event_data,'{}'::jsonb)
+  );
+  return true;
+end;
+$$;
+
+revoke all on function public.gwg_start_visit(uuid,uuid,text,text) from public;
+revoke all on function public.gwg_start_game(uuid,uuid,uuid,text,text,text) from public;
+revoke all on function public.gwg_heartbeat(uuid,uuid,integer,uuid,integer,integer) from public;
+revoke all on function public.gwg_finish_game(uuid,uuid,integer,integer,text,boolean,integer) from public;
+revoke all on function public.gwg_log_event(uuid,uuid,uuid,text,text,text,jsonb) from public;
+grant execute on function public.gwg_start_visit(uuid,uuid,text,text) to anon, authenticated;
+grant execute on function public.gwg_start_game(uuid,uuid,uuid,text,text,text) to anon, authenticated;
+grant execute on function public.gwg_heartbeat(uuid,uuid,integer,uuid,integer,integer) to anon, authenticated;
+grant execute on function public.gwg_finish_game(uuid,uuid,integer,integer,text,boolean,integer) to anon, authenticated;
+grant execute on function public.gwg_log_event(uuid,uuid,uuid,text,text,text,jsonb) to anon, authenticated;
+
 -- MASTER REPORT: one row per profile with all key totals.
 create or replace view public.player_master_report as
 with visits as (
