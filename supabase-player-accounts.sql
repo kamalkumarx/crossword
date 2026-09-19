@@ -14,8 +14,11 @@ create table if not exists public.player_registrations (
   state text not null default '',
   zip_code text not null default '',
   country text not null default 'United States',
+  box1 text not null default '',
   created_at timestamptz not null default now()
 );
+
+alter table public.player_registrations add column if not exists box1 text not null default '';
 
 alter table public.player_registrations enable row level security;
 drop policy if exists "Anyone can create a player ID" on public.player_registrations;
