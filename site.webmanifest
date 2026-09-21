@@ -1,0 +1,9 @@
+{
+  "name": "Golden Word Games",
+  "short_name": "Golden Games",
+  "description": "Free daily large-print puzzle games for adults 50+.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff9ec",
+  "theme_color": "#17324d"
+}
