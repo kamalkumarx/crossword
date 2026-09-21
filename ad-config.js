@@ -15,28 +15,28 @@
 window.GOLDEN_AD_CONFIG = {
   placements: {
     leaderboard: {
-      enabled: false,
+      enabled: true,
       // Exact creative size: 970 × 90 pixels (wide desktop banner).
-      imageUrl: "ads/ad-970x90.gif",
-      destinationUrl: "https://example.com/",
-      altText: "Sponsored advertisement",
-      openMode: "fullscreen_overlay"
+      imageUrl: window.GOLDEN_AD_ASSETS?.leaderboard || "ads/word-search-970x90.webp",
+      destinationUrl: "https://goldenwordgames.netlify.app/word-search/",
+      altText: "Find today's hidden words — play Word Search",
+      openMode: "new_tab"
     },
     rectangle: {
-      enabled: false,
+      enabled: true,
       // Exact creative size: 300 × 250 pixels.
-      imageUrl: "ads/ad-300x250.gif",
-      destinationUrl: "https://example.com/",
-      altText: "Sponsored advertisement",
-      openMode: "fullscreen_overlay"
+      imageUrl: window.GOLDEN_AD_ASSETS?.rectangle || "ads/sudoku-300x250.webp",
+      destinationUrl: "https://goldenwordgames.netlify.app/sudoku/",
+      altText: "Try today's Sudoku — easy, medium or hard",
+      openMode: "new_tab"
     },
     spotlight: {
-      enabled: false,
+      enabled: true,
       // Recommended creative size: 300 × 250 pixels (Partner Spotlight).
-      imageUrl: "ads/ad-spotlight-300x250.gif",
-      destinationUrl: "https://example.com/",
-      altText: "Partner spotlight advertisement",
-      openMode: "fullscreen_overlay"
+      imageUrl: window.GOLDEN_AD_ASSETS?.spotlight || "ads/memory-spotlight-300x250.webp",
+      destinationUrl: "https://goldenwordgames.netlify.app/memory-match/",
+      altText: "Partner Spotlight — Memory Match Challenge",
+      openMode: "new_tab"
     }
   },
 
