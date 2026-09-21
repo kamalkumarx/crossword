@@ -70,6 +70,40 @@
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
     .skip-link{position:fixed;left:14px;top:-80px;z-index:100;background:#fff;color:var(--navy);padding:12px 16px;border-radius:10px;font-weight:900;box-shadow:var(--shadow)}.skip-link:focus{top:12px}
     .seo-footer{background:#102a42;color:#fff;padding:28px 24px;text-align:center;font-size:.82rem;line-height:1.55}.seo-footer h2{margin:0 0 6px;font-size:1.1rem}.seo-footer p{max-width:760px;margin:0 auto 14px;color:#dce8f1}.footer-games{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.footer-games a{color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 12px;text-decoration:none;font-weight:800}.footer-games a:hover,.footer-games a:focus{background:#fff;color:var(--navy)}
+    /* Apple-inspired visual polish. Presentation only; game behavior is unchanged. */
+    :root{--shadow:0 18px 50px rgba(15,38,59,.10);font-size:18px;color-scheme:light}
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+    body{background:linear-gradient(145deg,#fffaf0 0%,#f7f9fb 48%,#edf3f7 100%);letter-spacing:-.006em}
+    .topbar{height:72px;padding:0 26px;background:rgba(18,45,69,.94);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 8px 28px rgba(15,38,59,.14);backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px)}
+    .brand-mark{border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 5px 14px rgba(0,0,0,.15)}
+    .brand strong{font-weight:750;letter-spacing:-.025em}
+    .app{min-height:calc(100vh - 72px)}
+    .sidebar{background:rgba(246,240,227,.88);border-color:rgba(23,50,77,.09);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .navbtn,.action,.top-btn,.profile,.difficulty,.submit,.skip,.google-btn,.memory-card,.letter,.clue{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease,opacity .18s ease}
+    .navbtn{border:1px solid transparent;border-radius:15px;padding:13px 15px}
+    .navbtn:hover{transform:translateY(-1px);background:rgba(255,255,255,.82);border-color:rgba(23,50,77,.08);box-shadow:0 7px 18px rgba(20,44,65,.07)}
+    .navbtn.active{background:linear-gradient(145deg,#234d70,#17324d);box-shadow:0 10px 24px rgba(23,50,77,.22),inset 0 1px 0 rgba(255,255,255,.16)}
+    main{padding:26px 30px}
+    h1{font-weight:760;letter-spacing:-.04em;line-height:1.08}.sub{line-height:1.45}
+    .panel,.stat-card,.rank-card,.daily-card{border:1px solid rgba(23,50,77,.09);box-shadow:0 18px 45px rgba(15,38,59,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+    .panel{background:rgba(255,253,247,.94);border-radius:26px;padding:22px}
+    .stat-card,.rank-card,.daily-card{border-radius:20px;background:rgba(255,255,255,.86)}
+    .rightbar{background:rgba(251,250,245,.74);border-color:rgba(23,50,77,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    .action,.difficulty,.top-btn{min-height:44px;border-radius:13px;box-shadow:0 3px 10px rgba(15,38,59,.05)}
+    .action:hover,.top-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(15,38,59,.11)}
+    .action:active,.top-btn:active,.navbtn:active,.profile:active,.submit:active{transform:scale(.975)}
+    .action.primary,.submit{background:linear-gradient(180deg,#f0803d,#df6528);box-shadow:0 8px 18px rgba(224,101,40,.22),inset 0 1px 0 rgba(255,255,255,.24)}
+    .profile{box-shadow:0 7px 18px rgba(244,185,66,.2),inset 0 1px 0 rgba(255,255,255,.45)}
+    .cell,.sudoku-cell,.letter{box-shadow:inset 0 1px 0 rgba(255,255,255,.75)}
+    .letter{border-radius:10px}.clue{border-radius:11px}
+    .memory-card{border-radius:18px;box-shadow:0 7px 0 #0d2235,0 13px 24px rgba(15,38,59,.12)}
+    .modal-backdrop{background:rgba(8,20,31,.62);backdrop-filter:blur(12px) saturate(130%);-webkit-backdrop-filter:blur(12px) saturate(130%)}
+    .modal{background:rgba(255,253,247,.96);border:1px solid rgba(255,255,255,.8);border-radius:28px;box-shadow:0 28px 90px rgba(5,18,29,.30),inset 0 1px 0 #fff}
+    .close{background:rgba(232,237,240,.88);transition:transform .18s ease,background-color .18s ease}.close:hover{transform:scale(1.06);background:#dde5ea}
+    .field input,.field select,.field textarea{min-height:44px;border-color:#c7d0d6;border-radius:12px;box-shadow:inset 0 1px 2px rgba(16,42,66,.035);transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#568db7;box-shadow:0 0 0 4px rgba(76,139,190,.14);outline:0}
+    .toast{border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 38px rgba(4,18,30,.28);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    @media(max-width:760px){.topbar{height:66px;padding:0 13px}.app{min-height:calc(100vh - 66px)}main{padding:16px 11px}.panel{padding:13px;border-radius:21px}.game-head{margin-bottom:17px}.modal{border-radius:24px}.action,.difficulty{min-height:42px}.seo-footer{padding:24px 16px}}
   </style>
 </head>
 <body>
