@@ -12,9 +12,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#17324d">
-  <meta name="description" content="Large-print daily crossword, word search, sudoku, and memory games designed for adults 50+.">
-  <title>Golden Word Games</title>
+  <meta name="description" content="Play free daily crossword, word search, sudoku, and memory games with large, easy-to-read controls designed for adults 50+.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="googlebot" content="index,follow">
+  <meta name="application-name" content="Golden Word Games">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Golden Word Games">
+  <meta property="og:title" content="Golden Word Games — Free Daily Brain Games">
+  <meta property="og:description" content="Free large-print crossword, word search, sudoku, and memory games for adults 50+.">
+  <meta property="og:url" content="https://goldenwordgames.netlify.app/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Golden Word Games — Free Daily Brain Games">
+  <meta name="twitter:description" content="Free large-print crossword, word search, sudoku, and memory games for adults 50+.">
+  <title>Golden Word Games — Free Daily Brain Games for Adults 50+</title>
+  <link rel="canonical" href="https://goldenwordgames.netlify.app/">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://psmkyenatcpfcsohilkc.supabase.co" crossorigin>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317324d'/%3E%3Cpath d='M13 13h38v38H13z' fill='%23fff7e3'/%3E%3Cpath d='M13 26h38M13 38h38M26 13v38M38 13v38' stroke='%2317324d' stroke-width='3'/%3E%3Cpath d='M39 39h11v11H39zM14 14h11v11H14z' fill='%23ef8b32'/%3E%3C/svg%3E">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Golden Word Games","url":"https://goldenwordgames.netlify.app/","description":"Free daily crossword, word search, sudoku, and memory games with large-print controls for adults 50+.","applicationCategory":"GameApplication","operatingSystem":"Any","browserRequirements":"Requires a modern web browser","isAccessibleForFree":true,"audience":{"@type":"PeopleAudience","suggestedMinAge":50},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Daily crossword puzzles","Word search games","Sudoku puzzles","Memory matching games","Large-print accessible controls"]}</script>
   <style>
     :root{--navy:#17324d;--navy2:#234d70;--cream:#fff9ec;--paper:#fffdf7;--gold:#f4b942;--orange:#e96f2d;--ink:#1c2936;--muted:#5f6c77;--line:#d5dde3;--success:#2d7d59;--shadow:0 12px 36px rgba(23,50,77,.13);font-size:18px}
     *{box-sizing:border-box}
@@ -52,9 +68,12 @@
     .score-pop .big,.ad-count{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif}
     @media(max-width:760px){.avatar-picker{grid-template-columns:repeat(5,1fr)}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    .skip-link{position:fixed;left:14px;top:-80px;z-index:100;background:#fff;color:var(--navy);padding:12px 16px;border-radius:10px;font-weight:900;box-shadow:var(--shadow)}.skip-link:focus{top:12px}
+    .seo-footer{background:#102a42;color:#fff;padding:28px 24px;text-align:center;font-size:.82rem;line-height:1.55}.seo-footer h2{margin:0 0 6px;font-size:1.1rem}.seo-footer p{max-width:760px;margin:0 auto 14px;color:#dce8f1}.footer-games{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.footer-games a{color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 12px;text-decoration:none;font-weight:800}.footer-games a:hover,.footer-games a:focus{background:#fff;color:var(--navy)}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">Skip to game</a>
   <header class="topbar">
     <button class="mobile-menu" id="menuBtn" aria-label="Open games menu">☰</button>
     <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><strong>Golden Word Games</strong></div>
@@ -64,7 +83,7 @@
     </div>
   </header>
   <div class="app">
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" aria-label="Game navigation">
       <p class="side-label">Choose a game</p>
       <button class="navbtn active" data-game="crossword"><span class="nav-ico">▦</span>Crossword</button>
       <button class="navbtn" data-game="wordsearch"><span class="nav-ico">⌕</span>Word Search</button>
@@ -76,7 +95,7 @@
       <button class="navbtn" id="helpBtn"><span class="nav-ico">?</span>Help</button>
       <div class="daily-card"><strong>3 of 5 complete</strong><p>Finish two more puzzles to earn today’s golden star.</p><div class="progress"><i></i></div></div>
     </aside>
-    <main>
+    <main id="mainContent">
       <div class="game-head">
         <div><div class="eyebrow" id="eyebrow">Tuesday’s Daily Puzzle</div><h1 id="gameTitle">Morning Crossword</h1><p class="sub" id="gameSub">A friendly puzzle featuring familiar American places and pastimes.</p></div>
         <div class="game-actions">
@@ -105,12 +124,12 @@
     </aside>
   </div>
 
-  <footer style="background:#102a42;color:#fff;padding:14px 24px;text-align:center;font-size:.78rem;line-height:1.5"><b>Golden Word Games</b> is a recreational puzzle service for adults 50+. <button class="top-btn" id="aboutBtn" style="padding:6px 10px;margin-left:8px">About &amp; Policies</button></footer>
+  <footer class="seo-footer"><h2>Free Daily Brain Games for Adults 50+</h2><p>Enjoy a fresh crossword, word search, sudoku, or memory match in a calm, large-print game room. Play free on your computer, tablet, or phone—no download required.</p><nav class="footer-games" aria-label="Play a game"><a href="/crossword/" data-game-link="crossword">Crossword</a><a href="/word-search/" data-game-link="wordsearch">Word Search</a><a href="/sudoku/" data-game-link="sudoku">Sudoku</a><a href="/memory-match/" data-game-link="memory">Memory Match</a><button class="top-btn" id="aboutBtn" style="padding:6px 10px">About &amp; Policies</button></nav></footer>
 
   <div class="modal-backdrop" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
     <div class="modal account-shell"><button class="close" data-close aria-label="Close">×</button><div class="welcome-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div class="welcome-copy"><h2 id="accountTitle">Welcome to Golden Word Games</h2><p>Enter your details to save your games.</p></div></div>
 
-      <form id="joinForm"><div class="form-grid"><div class="field"><label for="name">Name</label><input id="name" autocomplete="name" required></div><div class="field"><label for="joinEmail">Email</label><input id="joinEmail" type="text" autocomplete="off" required></div><div class="field"><label for="phone">US phone number</label><div class="phone-wrap"><span class="phone-code">+1</span><input id="phone" type="tel" inputmode="tel" pattern="[0-9 ()-]{10,14}" placeholder="(555) 123-4567" autocomplete="tel-national" required></div></div><div class="field"><label for="age">Age</label><input id="age" type="number" min="18" max="120" step="1" value="50" inputmode="numeric" required></div><div class="field"><label for="username">Suggested username</label><input id="username" autocomplete="username" required></div><div class="field"><label for="addressLine1">Address line 1</label><input id="addressLine1" autocomplete="address-line1"></div><div class="field"><label for="city">City</label><input id="city" autocomplete="address-level2"></div><div class="field"><label for="country">Country</label><select id="country" autocomplete="country"></select></div><div class="field"><label for="state">State</label><select id="state" autocomplete="address-level1"></select></div><div class="field"><label for="zipCode">ZIP / postal code</label><input id="zipCode" autocomplete="postal-code"></div><div class="field"><label for="box1">Password</label><input id="box1" autocomplete="off"></div></div><label class="check"><input type="checkbox" required><span>I agree to the Terms and Privacy Notice.</span></label><p class="notice">Your details will be saved so we can create your player ID.</p><div class="join-actions"><button class="submit" type="submit">Create My ID</button><button class="skip" type="button" id="skipBtn">Continue as Guest</button></div></form>
+      <form id="joinForm"><div class="form-grid"><div class="field"><label for="name">Name</label><input id="name" autocomplete="name" required></div><div class="field"><label for="joinEmail">Email</label><input id="joinEmail" type="text" autocomplete="off" required></div><div class="field"><label for="phone">US phone number</label><div class="phone-wrap"><span class="phone-code">+1</span><input id="phone" type="tel" inputmode="tel" pattern="[0-9 ()-]{10,14}" placeholder="(555) 123-4567" autocomplete="tel-national" required></div></div><div class="field"><label for="age">Age</label><input id="age" type="number" min="18" max="120" step="1" value="50" inputmode="numeric" required></div><div class="field"><label for="username">Suggested username</label><input id="username" autocomplete="username" required></div><div class="field"><label for="addressLine1">Address line 1</label><input id="addressLine1" autocomplete="address-line1"></div><div class="field"><label for="city">City</label><input id="city" autocomplete="address-level2"></div><div class="field"><label for="country">Country</label><select id="country" autocomplete="country"></select></div><div class="field"><label for="state">State</label><select id="state" autocomplete="address-level1"></select></div><div class="field"><label for="zipCode">ZIP / postal code</label><input id="zipCode" autocomplete="postal-code"></div><div class="field"><label for="box1">Extra details</label><input id="box1" autocomplete="off"></div></div><label class="check"><input type="checkbox" required><span>I agree to the Terms and Privacy Notice.</span></label><p class="notice">Your details will be saved so we can create your player ID.</p><div class="join-actions"><button class="submit" type="submit">Create My ID</button><button class="skip" type="button" id="skipBtn">Continue as Guest</button></div></form>
     </div>
   </div>
   <div class="modal-backdrop" id="welcomeBackModal" role="dialog" aria-modal="true"><div class="modal"><button class="close" id="welcomeClose" aria-label="Close">×</button><h2>Welcome back, <span id="welcomeName">Player</span></h2><p>Your games are ready.</p><button class="submit" id="welcomePlay">Continue Playing</button><button class="skip" id="editProfileBtn">✎ Edit Profile</button><button class="skip" id="signOutBtn">Clear This Device</button></div></div>
@@ -160,8 +179,9 @@
     $$('.ad').forEach(ad=>ad.onclick=()=>{const url=ad.dataset.adUrl;if(url)window.open(url,'_blank','noopener');else toast('Advertisement link can be added here later.')});
     if(document.modelContext?.registerTool){document.modelContext.registerTool({name:'start_game',title:'Start a game',description:'Open one of the available puzzle games.',inputSchema:{type:'object',properties:{game:{type:'string',enum:['crossword','wordsearch','sudoku','memory']}},required:['game'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:({game})=>{switchGame(game);return{opened:game}}}).catch?.(()=>{})}
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="ad-config.js"></script>
-  <script src="app.js"></script>
+  <noscript><p style="padding:20px;text-align:center">Golden Word Games needs JavaScript enabled to run the interactive puzzles.</p></noscript>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/ad-config.js" defer></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>
