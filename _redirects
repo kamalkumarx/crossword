@@ -1,3 +1,4 @@
+/api/track-visitor /.netlify/functions/track-visitor 200
 /crossword/*    /index.html    200
 /word-search/*  /index.html    200
 /sudoku/*       /index.html    200
