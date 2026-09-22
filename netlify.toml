@@ -2,6 +2,11 @@
   publish = "."
   functions = "netlify/functions"
 
+[build.environment]
+  # The Supabase project URL is intentionally public and is also used by the
+  # browser application. Do not omit the service-role key or visitor salt.
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL"
+
 [[redirects]]
   from = "/api/track-visitor"
   to = "/.netlify/functions/track-visitor"
