@@ -2,7 +2,7 @@ const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelect
 const SUPABASE_URL="https://psmkyenatcpfcsohilkc.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_gBCXwgZHPtE7SjkhVyrMuA_ujsfp7QC";
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const SITE_URL="https://goldenwordgames.netlify.app",browserSessionId=crypto.randomUUID(),visitStartedAt=Date.now();
+const SITE_URL=window.location.origin,browserSessionId=crypto.randomUUID(),visitStartedAt=Date.now();
 let currentUser=null,currentGameSessionId=null,lastActiveAt=Date.now(),activeSeconds=0;
 let playerToken=localStorage.getItem("gwg_player_token")||"";
 const anonymousVisitorId=(()=>{let id=localStorage.getItem("gwg_anonymous_visitor_id");if(!id){id=crypto.randomUUID();localStorage.setItem("gwg_anonymous_visitor_id",id)}return id})();
