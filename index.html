@@ -68,6 +68,7 @@
     .score-pop .big,.ad-count{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif}
     @media(max-width:760px){.avatar-picker{grid-template-columns:repeat(5,1fr)}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    .exit-site-btn{border:1px solid rgba(255,255,255,.65);border-radius:10px;padding:8px 12px;background:transparent;color:#fff;font-weight:800;cursor:pointer}.exit-site-btn:hover,.exit-site-btn:focus-visible{background:rgba(255,255,255,.17)}.exit-confirm{z-index:110;background:rgba(8,20,31,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:none}.exit-confirm-box{width:min(100%,430px);padding:36px 28px;text-align:center;cursor:auto}.exit-warning{display:grid;place-items:center;margin:0 auto 16px;width:58px;height:58px;border-radius:50%;background:#dc4638;color:#fff;font-size:2rem;font-weight:900}.exit-confirm-actions{display:flex;gap:10px;margin-top:22px}.exit-confirm-actions button{flex:1;width:auto;cursor:pointer}.exit-confirm-actions .skip{border:1px solid var(--navy);border-radius:12px;background:white}.exit-confirm-actions button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
     .skip-link{position:fixed;left:14px;top:-80px;z-index:100;background:#fff;color:var(--navy);padding:12px 16px;border-radius:10px;font-weight:900;box-shadow:var(--shadow)}.skip-link:focus{top:12px}
     .seo-footer{background:#102a42;color:#fff;padding:28px 24px;text-align:center;font-size:.82rem;line-height:1.55}.seo-footer h2{margin:0 0 6px;font-size:1.1rem}.seo-footer p{max-width:760px;margin:0 auto 14px;color:#dce8f1}.footer-games{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.footer-games a{color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 12px;text-decoration:none;font-weight:800}.footer-games a:hover,.footer-games a:focus{background:#fff;color:var(--navy)}
     /* Apple-inspired visual polish. Presentation only; game behavior is unchanged. */
@@ -113,6 +114,7 @@
     <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><strong>Golden Word Games</strong></div>
     <div class="top-actions">
       <button class="top-btn" id="howBtn">How to Play</button>
+      <button class="exit-site-btn" id="exitSiteBtn" type="button">Leave site</button>
       <button class="profile" id="profileBtn"><span class="profile-avatar" id="profileAvatar">🐾</span><span id="profileName">Guest</span><span class="profile-edit" aria-hidden="true">✎</span></button>
     </div>
   </header>
@@ -160,6 +162,9 @@
 
   <footer class="seo-footer"><h2>Free Daily Brain Games for Adults 50+</h2><p>Enjoy a fresh crossword, word search, sudoku, or memory match in a calm, large-print game room. Play free on your computer, tablet, or phone—no download required.</p><nav class="footer-games" aria-label="Play a game"><a href="/crossword/" data-game-link="crossword">Crossword</a><a href="/word-search/" data-game-link="wordsearch">Word Search</a><a href="/sudoku/" data-game-link="sudoku">Sudoku</a><a href="/memory-match/" data-game-link="memory">Memory Match</a><button class="top-btn" id="aboutBtn" style="padding:6px 10px">About &amp; Policies</button></nav></footer>
 
+  <div class="modal-backdrop exit-confirm" id="exitConfirmModal" role="dialog" aria-modal="true" aria-labelledby="exitConfirmTitle" aria-describedby="exitConfirmText">
+    <div class="modal exit-confirm-box"><span class="exit-warning" aria-hidden="true">!</span><h2 id="exitConfirmTitle">Leave Golden Word Games?</h2><p id="exitConfirmText">Your game will close and you will go to Google.</p><div class="exit-confirm-actions"><button class="submit" id="confirmLeave" type="button">Leave</button><button class="skip" id="confirmStay" type="button">Stay and Play</button></div></div>
+  </div>
   <div class="modal-backdrop" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
     <div class="modal account-shell"><button class="close" data-close aria-label="Close">×</button><div class="welcome-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div class="welcome-copy"><h2 id="accountTitle">Welcome to Golden Word Games</h2><p>Enter your details to save your games.</p></div></div>
 
